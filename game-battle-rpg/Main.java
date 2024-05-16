@@ -1,31 +1,42 @@
 public class Main {
     public static void main(String[] args) {
-        Fighter fighter = new Fighter("Arjuna", 100, 50);
-        Skeleton skeleton = new Skeleton("Giant Skeleton", 60, 20);
+        Character hero = new Hero("Arthur", HeroType.KNIGHT, 1);
+        Character foe = new Foe("Orc", FoeType.ORC, 1);
 
-        // Fighter menyerang Skeleton
-        System.out.println("Fighter (Arjuna) menyerang Skeleton (Giant Skeleton) menggunakan " + fighter.getSenjata());
-        fighter.attack(skeleton);
-        System.out.println("HP Giant Skeleton setelah diserang: " + skeleton.getHealthPoint());
-        System.out.println("\n");
-        
-        // Skeleton menggunakan potion
-        System.out.println("Giant Skeleton menggunakan potion");
-        skeleton.usePotion(7); // Misalkan potion menambah 20 HP
-        System.out.println("HP Giant Skeleton setelah menggunakan potion: " + skeleton.getHealthPoint());
-        System.out.println("\n");
-        
-        // Skeleton menyerang balik Fighter
-        System.out.println("Skeleton (Giant Skeleton) menyerang Fighter (Arjuna) menggunakan magic" );
-        skeleton.attack(fighter);
-        System.out.println("HP Armor Arjuna setelah diserang: " + fighter.getArmorHealthPoint());
-        System.out.println("HP Arjuna setelah diserang: " + fighter.getHealthPoint());
-        System.out.println("\n");
-        
-        // Fighter menggunakan ether
-        System.out.println("Arjuna menggunakan ether");
-        fighter.useEther(15); // Misalkan ether menambah 15 MP
-        System.out.println("MP Arjuna setelah menggunakan ether: " + fighter.getMagicPoint());
+        System.out.println("Status awal:");
+        printStatus(hero);
+        printStatus(foe);
+
+        // Hero menyerang Foe dengan serangan biasa
+        ((Hero) hero).attack(foe);
+
+        System.out.println("\nSetelah serangan biasa:");
+        printStatus(hero);
+        printStatus(foe);
+
+        // Hero menggunakan skill khusus
+        ((Hero) hero).useSkill(foe);
+
+        System.out.println("\nSetelah menggunakan skill khusus:");
+        printStatus(hero);
+        printStatus(foe);
+
+        // Foe menyerang Hero
+        ((Foe) foe).attack(hero);
+
+        System.out.println("\nSetelah serangan Foe:");
+        printStatus(hero);
+        printStatus(foe);
+
+        // Membuat dan menggunakan item pada Hero
+        Item potion = new Potion();
+        ((Hero) hero).useItem(potion);
+
+        System.out.println("\nSetelah menggunakan item:");
+        printStatus(hero);
+    }
+
+    private static void printStatus(Character character) {
+        System.out.println(character.getName() + ": HP = " + character.getHealthPoint() + ", MP = " + character.getMagicPoint());
     }
 }
-
